@@ -25,11 +25,19 @@ Run Step 1 of the website design workflow: Client Profile & Web Description.
    continuing to the page content plan.
 7. Using the confirmed profile's services, goals, and must-have pages list,
    build the per-page content plan following
-   `templates/02-page-plan-template.md`: for EVERY must-have page, define
-   its required sections in order and what real content (drawn from the
-   client's actual services/benefits/goals) goes in each — not placeholder
-   text. Mark anything the profile doesn't have enough content for as
-   "Needs client input" rather than inventing it.
+   `templates/02-page-plan-template.md`: for EVERY must-have page, think
+   through what a real visitor to THIS industry/page actually needs to see
+   before they'd trust the business or act — don't default to a generic
+   Header/Hero/Overview/CTA/Footer skeleton. Consider industry-appropriate
+   sections (trust stats, process/how-it-works, industries served,
+   comparison tables, FAQ, certifications, timeline, coverage area, etc. —
+   see the template for more) and include whichever genuinely fit this
+   client. For every section, write both the real content (drawn from the
+   client's actual services/benefits/goals, not placeholder text) AND a
+   one-line reason it belongs on this page for this industry. Mark
+   anything the profile doesn't have enough content for as "Needs client
+   input" rather than inventing it — the section can still be structured
+   and included, just flagged.
 8. Write this to `clients/<client-name>/02-page-plan.md`.
 9. Show the user the page plan and confirm it before continuing. Do
    not make any design/style decisions here (palette, fonts, layout look)

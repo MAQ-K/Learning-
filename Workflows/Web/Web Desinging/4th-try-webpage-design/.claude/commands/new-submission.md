@@ -37,10 +37,15 @@ all) — in that case, ask only about what's missing, then continue.
 
 Using the profile just built, generate the per-page content plan following
 `templates/02-page-plan-template.md`: for EVERY must-have page selected in
-the form, define its required sections in order and the real content for
-each, drawn from the client's actual services/goals/benefits. Mark
-anything without enough source content as "Needs client input" rather than
-inventing it. Write to `clients/<slug>/02-page-plan.md`.
+the form, think through industry-appropriate sections rather than a
+generic Header/Hero/Overview/CTA/Footer skeleton (trust stats,
+how-it-works, industries served, comparison tables, FAQ, certifications,
+coverage area, etc. — see the template). For every section, write the real
+content (drawn from the client's actual services/goals/benefits) AND a
+one-line reason it belongs on this page for this industry. Mark anything
+without enough source content as "Needs client input" rather than
+inventing it — still include the section, structured, if it's genuinely
+valuable once filled in. Write to `clients/<slug>/02-page-plan.md`.
 
 ## 4. Phase 2 — build the first page draft (auto)
 
