@@ -1,0 +1,142 @@
+{
+  "name": "Website Workflow - Intake Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "webhook-intake",
+      "name": "Webhook - Form Submission",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $input.item.json.body;\n\nfunction slugify(str) {\n  return String(str)\n    .toLowerCase()\n    .trim()\n    .replace(/[^\\w\\u0600-\\u06FF\\s-]/g, '')\n    .replace(/\\s+/g, '-')\n    .slice(0, 60);\n}\n\nconst slugSource = data.company_name_en || data.company_name_ar || 'unknown-client';\nconst slug = slugify(slugSource);\n\nconst record = {\n  received_at: new Date().toISOString(),\n  slug,\n  form_data: data\n};\n\nreturn [{ json: { slug, record } }];"
+      },
+      "id": "build-record",
+      "name": "Build Client Record",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "record",
+        "options": {}
+      },
+      "id": "json-to-binary",
+      "name": "Convert to File",
+      "type": "n8n-nodes-base.moveBinaryData",
+      "typeVersion": 1,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "fileName": "=/PATH/TO/YOUR/PROJECT/clients/{{ $json.slug }}/incoming-form.json",
+        "dataPropertyName": "data"
+      },
+      "id": "write-file",
+      "name": "Write incoming-form.json",
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [900, 300],
+      "notes": "Set fileName's base path to the actual absolute path of your website-workflow project on this machine, e.g. /home/ayman/projects/website-workflow/clients/{{ $json.slug }}/incoming-form.json"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { ok: true, slug: $json.slug } }}"
+      },
+      "id": "respond-webhook",
+      "name": "Respond to Form",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1120, 180]
+    },
+    {
+      "parameters": {
+        "command": "=cd /PATH/TO/YOUR/PROJECT && claude -p \"/new-submission for client {{ $json.slug }}\" --permission-mode acceptEdits --allowedTools \"Read,Write,Edit,Bash,WebSearch,WebFetch\" --output-format json"
+      },
+      "id": "run-claude-code",
+      "name": "Run /new-submission (headless)",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1120, 420],
+      "notes": "Replace /PATH/TO/YOUR/PROJECT with the absolute path to website-workflow on this machine. This node must run on the same machine that has the claude CLI installed and authenticated."
+    },
+    {
+      "parameters": {
+        "jsCode": "// stdout from claude -p --output-format json is a JSON string in $json.stdout\nlet result;\ntry {\n  result = JSON.parse($input.item.json.stdout);\n} catch (e) {\n  result = { subtype: 'parse_error', raw: $input.item.json.stdout };\n}\nreturn [{ json: result }];"
+      },
+      "id": "parse-result",
+      "name": "Parse Claude Result",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1340, 420]
+    },
+    {
+      "parameters": {
+        "subject": "=New client intake ready for review: {{ $('Build Client Record').item.json.slug }}",
+        "text": "=Phase 1+2 completed automatically for {{ $('Build Client Record').item.json.slug }}.\n\nProfile: clients/{{ $('Build Client Record').item.json.slug }}/01-profile.md\nHome page draft: clients/{{ $('Build Client Record').item.json.slug }}/pages/home/index.html\n\nClaude's summary:\n{{ $json.result }}\n\nReview and continue with /step3-inspiration when ready.",
+        "options": {}
+      },
+      "id": "notify-review",
+      "name": "Notify - Ready for Review",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [1560, 420],
+      "notes": "Configure your email credentials (or swap this node for Slack/Telegram) so you get pinged when a submission is auto-processed and ready for your review."
+    }
+  ],
+  "connections": {
+    "Webhook - Form Submission": {
+      "main": [
+        [
+          { "node": "Build Client Record", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Build Client Record": {
+      "main": [
+        [
+          { "node": "Convert to File", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          { "node": "Write incoming-form.json", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Write incoming-form.json": {
+      "main": [
+        [
+          { "node": "Respond to Form", "type": "main", "index": 0 },
+          { "node": "Run /new-submission (headless)", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Run /new-submission (headless)": {
+      "main": [
+        [
+          { "node": "Parse Claude Result", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Parse Claude Result": {
+      "main": [
+        [
+          { "node": "Notify - Ready for Review", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نموذج بيانات المشروع — Project Intake Form</title>
+<style>
+  :root {
+    --navy: #0B1F3A;
+    --blue: #2E5EAA;
+    --silver: #A9B4C0;
+    --bg: #F7F8FA;
+    --error: #C0392B;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+    background: var(--bg);
+    margin: 0;
+    padding: 40px 16px;
+    color: var(--navy);
+  }
+  form {
+    max-width: 720px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 12px rgba(11,31,58,0.08);
+  }
+  h1 { font-size: 22px; margin-bottom: 4px; }
+  .sub { color: #667; margin-bottom: 28px; font-size: 14px; }
+  fieldset {
+    border: none;
+    border-top: 1px solid #E4E7EC;
+    padding: 20px 0;
+    margin: 0;
+  }
+  legend {
+    font-weight: 700;
+    color: var(--blue);
+    padding: 0;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 14px 0 6px;
+  }
+  input[type=text], input[type=email], input[type=url], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #D6DAE0;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 70px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > div { flex: 1; min-width: 200px; }
+  .checks { display: flex; flex-wrap: wrap; gap: 10px; }
+  .checks label {
+    display: flex; align-items: center; gap: 6px;
+    font-weight: 400; margin: 0;
+    border: 1px solid #D6DAE0; border-radius: 20px;
+    padding: 6px 12px; cursor: pointer;
+  }
+  .checks input { width: auto; }
+  button {
+    margin-top: 24px;
+    width: 100%;
+    padding: 14px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  button:hover { background: var(--blue); }
+  #status { margin-top: 16px; font-size: 14px; text-align: center; }
+  .hint { font-size: 12px; color: #889; margin-top: 4px; }
+</style>
+</head>
+<body>
+<form id="intakeForm">
+  <h1>نموذج بيانات المشروع / Project Intake Form</h1>
+  <p class="sub">من فضلك أكمل البيانات التالية بدقة، ستساعدنا في بناء موقعك بأفضل شكل. / Please fill this in as accurately as possible — it drives the design and build of your site.</p>
+
+  <fieldset>
+    <legend>معلومات الشركة / Business Basics</legend>
+    <div class="row">
+      <div>
+        <label>اسم الشركة (عربي) / Company Name (Arabic)</label>
+        <input type="text" name="company_name_ar" required>
+      </div>
+      <div>
+        <label>Company Name (English)</label>
+        <input type="text" name="company_name_en">
+      </div>
+    </div>
+    <label>المجال / نوع النشاط / Industry / Field</label>
+    <input type="text" name="industry" required>
+    <label>سنوات الخبرة أو تاريخ الشركة / Years in Business / History</label>
+    <textarea name="history"></textarea>
+    <label>الدولة/المدن المستهدفة / Location(s) Served</label>
+    <div class="checks">
+      <label><input type="checkbox" name="market" value="egypt"> مصر / Egypt</label>
+      <label><input type="checkbox" name="market" value="saudi"> السعودية / Saudi Arabia</label>
+      <label><input type="checkbox" name="market" value="other"> أخرى / Other</label>
+    </div>
+    <label>هل يوجد شعار أو هوية بصرية جاهزة؟ / Existing logo or brand identity?</label>
+    <select name="has_brand_assets">
+      <option value="no">لا / No</option>
+      <option value="yes">نعم / Yes</option>
+    </select>
+  </fieldset>
+
+  <fieldset>
+    <legend>السوق المستهدف / Target Market</legend>
+    <label>من هم عملاؤك؟ (شركات / أفراد، الفئة العمرية...) / Who are your customers?</label>
+    <textarea name="target_audience"></textarea>
+    <label>أهم المنافسين (أسماء أو روابط) / Main Competitors (names or URLs)</label>
+    <textarea name="competitors" placeholder="competitor1.com, competitor2.com"></textarea>
+  </fieldset>
+
+  <fieldset>
+    <legend>الخدمات / المنتجات / Services & Products</legend>
+    <label>اذكر خدماتك وأهم فائدة لكل خدمة للعميل / List your services and the main client benefit of each</label>
+    <textarea name="services" placeholder="مثال: تركيب أبواب أوتوماتيكية — أمان وسرعة دخول ٢٤/٧" rows="4"></textarea>
+  </fieldset>
+
+  <fieldset>
+    <legend>أهداف الموقع / Site Goals</legend>
+    <label>الهدف الأساسي من الموقع / Primary Goal</label>
+    <select name="primary_goal">
+      <option value="leads">جذب عملاء محتملين / Leads</option>
+      <option value="sales">مبيعات مباشرة / Direct Sales</option>
+      <option value="credibility">مصداقية للعلامة التجارية / Brand Credibility</option>
+      <option value="portfolio">عرض أعمال سابقة / Portfolio Showcase</option>
+      <option value="portal">بوابة عملاء / خدمات / Customer/Service Portal</option>
+    </select>
+    <label>الصفحات المطلوبة / Must-Have Pages</label>
+    <div class="checks">
+      <label><input type="checkbox" name="pages" value="home"> الرئيسية / Home</label>
+      <label><input type="checkbox" name="pages" value="services"> الخدمات / Services</label>
+      <label><input type="checkbox" name="pages" value="pricing"> الأسعار / Pricing</label>
+      <label><input type="checkbox" name="pages" value="portfolio"> أعمالنا / Our Work</label>
+      <label><input type="checkbox" name="pages" value="about"> من نحن / About</label>
+      <label><input type="checkbox" name="pages" value="contact"> اتصل بنا / Contact</label>
+    </div>
+    <label>هل يوجد محتوى جاهز للاستخدام؟ (موقع قديم، بروشور) / Existing content to reuse?</label>
+    <textarea name="existing_content"></textarea>
+  </fieldset>
+
+  <fieldset>
+    <legend>نبرة المحتوى / Tone & Voice</legend>
+    <label>نبرة المحتوى المفضلة / Preferred Tone</label>
+    <select name="tone">
+      <option value="formal">رسمي / Formal</option>
+      <option value="friendly">ودود / Friendly</option>
+      <option value="premium">فاخر / Premium</option>
+      <option value="technical">تقني / Technical</option>
+    </select>
+    <label>عبارات أو شعارات ثابتة يجب الحفاظ عليها / Fixed phrases/taglines to keep</label>
+    <input type="text" name="fixed_phrases">
+  </fieldset>
+
+  <fieldset>
+    <legend>متطلبات تقنية / Technical Constraints</legend>
+    <label>هل الموقع عربي فقط أم ثنائي اللغة؟ / RTL Requirement</label>
+    <select name="rtl_requirement">
+      <option value="arabic-first">عربي أساسي / Arabic-first</option>
+      <option value="bilingual">ثنائي اللغة / Bilingual</option>
+      <option value="english-first">إنجليزي أساسي / English-first</option>
+    </select>
+    <label>تكاملات مطلوبة (نموذج تواصل، دفع، OTP...) / Integrations needed</label>
+    <input type="text" name="integrations">
+  </fieldset>
+
+  <fieldset>
+    <legend>الموعد النهائي / Timeline</legend>
+    <label>الموعد النهائي المطلوب / Deadline</label>
+    <input type="text" name="deadline">
+  </fieldset>
+
+  <fieldset>
+    <legend>بيانات التواصل / Contact Info</legend>
+    <div class="row">
+      <div>
+        <label>الاسم / Name</label>
+        <input type="text" name="contact_name" required>
+      </div>
+      <div>
+        <label>البريد الإلكتروني / Email</label>
+        <input type="email" name="contact_email" required>
+      </div>
+    </div>
+  </fieldset>
+
+  <button type="submit">إرسال / Submit</button>
+  <div id="status"></div>
+</form>
+
+<script>
+const form = document.getElementById('intakeForm');
+const status = document.getElementById('status');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  status.textContent = 'جاري الإرسال... / Sending...';
+
+  const formData = new FormData(form);
+  const data = {};
+  for (const [key, value] of formData.entries()) {
+    if (data[key]) {
+      data[key] = Array.isArray(data[key]) ? [...data[key], value] : [data[key], value];
+    } else {
+      data[key] = value;
+    }
+  }
+
+  try {
+    // If using the Express endpoint (server/intake-endpoint.js): '/api/intake'
+    // If using n8n (automation/n8n-intake-workflow.json): your n8n webhook URL
+    const res = await fetch('/api/intake', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      status.textContent = 'تم الإرسال بنجاح! سنبدأ العمل على مشروعك قريباً. / Submitted successfully!';
+      form.reset();
+    } else {
+      status.textContent = 'حدث خطأ، حاول مرة أخرى. / Something went wrong, please try again.';
+    }
+  } catch (err) {
+    status.textContent = 'تعذر الاتصال بالخادم. / Could not reach the server.';
+  }
+});
+</script>
+</body>
+</html>
