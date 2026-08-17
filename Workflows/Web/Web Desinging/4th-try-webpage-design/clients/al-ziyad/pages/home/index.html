@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شركة الزياد للنقل المبرد — رواد في خدمات الشحن والنقل المبرد</title>
+<meta name="description" content="شركة الزياد للنقل المبرد — نقل مجمد ومبرد وجاف في مصر والمملكة العربية السعودية. أسطول حديث، التزام بالمواعيد، وتوافق صارم مع معايير سلامة الغذاء.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap');
+
+  :root {
+    --color-primary: #1E3A8A;
+    --color-primary-dark: #16296A;
+    --color-secondary: #1E40AF;
+    --color-accent: #B45309;
+    --color-accent-dark: #92400E;
+    --color-bg: #F8FAFC;
+    --color-fg: #0F172A;
+    --color-card: #FFFFFF;
+    --color-muted: #E9EEF5;
+    --color-muted-fg: #64748B;
+    --color-border: #CBD5E1;
+    --color-destructive: #DC2626;
+    --color-on-primary: #FFFFFF;
+
+    --font-ar: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+    --font-en: 'Source Sans 3', 'Segoe UI', Tahoma, sans-serif;
+
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.5rem;
+    --space-4: 2rem;
+    --space-6: 3rem;
+    --space-8: 4rem;
+    --space-12: 6rem;
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-card: 0 2px 12px rgba(15, 23, 42, 0.08);
+    --shadow-lift: 0 12px 32px rgba(15, 23, 42, 0.12);
+    --transition: 200ms ease;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: var(--font-ar);
+    background: var(--color-bg);
+    color: var(--color-fg);
+    line-height: 1.6;
+    font-size: 16px;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .en {
+    font-family: var(--font-en);
+    direction: ltr;
+    unicode-bidi: isolate;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-3);
+  }
+
+  .eyebrow {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-accent-dark);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: var(--space-1);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 900;
+    margin: 0 0 var(--space-1);
+  }
+
+  .section-sub {
+    color: var(--color-muted-fg);
+    max-width: 60ch;
+    margin: 0 0 var(--space-6);
+  }
+
+  .section-head { text-align: center; margin-bottom: var(--space-6); }
+  .section-head .section-sub { margin-inline: auto; }
+
+  section { padding: var(--space-12) 0; }
+  section.tight { padding: var(--space-8) 0; }
+
+  .placeholder {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent-dark);
+    background: #FEF3E2;
+    border: 1px dashed var(--color-accent);
+    border-radius: 999px;
+    padding: 2px 10px;
+    margin-inline-start: 6px;
+  }
+
+  button, .btn {
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.9rem 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
+  .btn-primary {
+    background: var(--color-accent);
+    color: #fff;
+    box-shadow: var(--shadow-card);
+  }
+  .btn-primary:hover { background: var(--color-accent-dark); box-shadow: var(--shadow-lift); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--color-on-primary);
+    border: 1.5px solid rgba(255,255,255,0.5);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.12); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 1.5px solid var(--color-border);
+  }
+  .btn-outline:hover { border-color: var(--color-primary); background: var(--color-muted); }
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  /* ---------- Header / Nav ---------- */
+  header.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-card);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: 0.9rem var(--space-3);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--color-primary);
+  }
+  .brand-mark {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--color-primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  .brand-text small {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--color-muted-fg);
+  }
+
+  nav.main-nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  nav.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+  }
+  nav.main-nav a.nav-link {
+    font-weight: 600;
+    color: var(--color-fg);
+    padding: 0.4rem 0.2rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color var(--transition), color var(--transition);
+  }
+  nav.main-nav a.nav-link:hover,
+  nav.main-nav a.nav-link:focus-visible {
+    color: var(--color-primary);
+    border-color: var(--color-accent);
+  }
+
+  .nav-phone {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.4rem;
+  }
+
+  @media (max-width: 860px) {
+    nav.main-nav ul {
+      position: absolute;
+      inset-inline: 0;
+      top: 100%;
+      background: var(--color-card);
+      border-bottom: 1px solid var(--color-border);
+      flex-direction: column;
+      gap: 0;
+      padding: var(--space-2) var(--space-3);
+      display: none;
+    }
+    nav.main-nav.open ul { display: flex; }
+    nav.main-nav ul li { width: 100%; }
+    nav.main-nav a.nav-link { display: block; padding: 0.75rem 0; }
+    .nav-toggle { display: inline-flex; }
+    .nav-phone.desktop-only { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(15,23,42,0.78), rgba(30,58,138,0.82)),
+      url('../../../../images/generated-1786871518869.png') center/cover no-repeat;
+    padding: var(--space-12) 0;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-inner { max-width: 720px; }
+  .hero h1 {
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    font-weight: 900;
+    line-height: 1.25;
+    margin: 0 0 var(--space-2);
+  }
+  .hero p.lead {
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 var(--space-4);
+    max-width: 55ch;
+  }
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+  .hero-photo-credit {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.6);
+    margin-top: var(--space-4);
+  }
+
+  /* ---------- Trust Stats ---------- */
+  .stats-band {
+    background: var(--color-primary);
+    color: #fff;
+    padding: var(--space-6) 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+    text-align: center;
+  }
+  .stat-label {
+    font-size: 1.05rem;
+    font-weight: 700;
+  }
+  .stat-sub {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+  }
+
+  /* ---------- Services ---------- */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+  .service-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-4);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition), box-shadow var(--transition);
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .service-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-sm);
+    background: var(--color-muted);
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-2);
+  }
+  .service-card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+  .service-card p { margin: 0 0 var(--space-2); color: var(--color-muted-fg); }
+  .service-card .temp-range {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    background: var(--color-muted);
+    border-radius: 999px;
+    padding: 3px 10px;
+    margin-bottom: var(--space-2);
+  }
+  .service-card a.card-link {
+    font-weight: 700;
+    color: var(--color-accent-dark);
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  /* ---------- How It Works ---------- */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    counter-reset: step;
+  }
+  .step {
+    text-align: center;
+    padding: var(--space-3);
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-2);
+  }
+  .step h3 { margin: 0 0 0.3rem; font-size: 1rem; }
+  .step p { margin: 0; color: var(--color-muted-fg); font-size: 0.9rem; }
+
+  /* ---------- Industries ---------- */
+  .industries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-3);
+  }
+  .industry-chip {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-3);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-weight: 700;
+  }
+  .industry-chip .icon { color: var(--color-accent-dark); }
+
+  /* ---------- Why Al-Ziyad ---------- */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-4);
+  }
+  .why-item { display: flex; gap: var(--space-2); align-items: flex-start; }
+  .why-item .icon {
+    background: var(--color-primary);
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    width: 20px;
+    height: 20px;
+  }
+  .why-item h3 { margin: 0 0 0.25rem; font-size: 1.05rem; }
+  .why-item p { margin: 0; color: var(--color-muted-fg); }
+
+  /* ---------- Fleet teaser ---------- */
+  .fleet-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+  .fleet-gallery img {
+    border-radius: var(--radius);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+  }
+  @media (max-width: 700px) {
+    .fleet-gallery { grid-template-columns: 1fr; }
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .split { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- Coverage ---------- */
+  .coverage-band {
+    background: var(--color-muted);
+  }
+  .coverage-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+  }
+  .coverage-pill {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { max-width: 760px; margin: 0 auto; }
+  details.faq-item {
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: var(--space-2) var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+  details.faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  details.faq-item summary::-webkit-details-marker { display: none; }
+  details.faq-item summary .chevron { transition: transform var(--transition); flex-shrink: 0; }
+  details.faq-item[open] summary .chevron { transform: rotate(180deg); }
+  details.faq-item p {
+    color: var(--color-muted-fg);
+    margin: var(--space-2) 0 0;
+  }
+
+  /* ---------- CTA band ---------- */
+  .cta-band {
+    background: linear-gradient(120deg, var(--color-primary), var(--color-primary-dark));
+    color: #fff;
+    text-align: center;
+  }
+  .cta-band h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 0 0 var(--space-2); font-weight: 900; }
+  .cta-band p { color: rgba(255,255,255,0.85); margin: 0 0 var(--space-4); }
+  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
+  .btn-whatsapp { background: #128C7E; color: #fff; }
+  .btn-whatsapp:hover { background: #0d6e63; }
+
+  /* ---------- Footer ---------- */
+  footer.site-footer {
+    background: var(--color-fg);
+    color: rgba(255,255,255,0.8);
+    padding: var(--space-8) 0 var(--space-4);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+  }
+  .footer-grid h4 {
+    color: #fff;
+    font-size: 0.9rem;
+    margin: 0 0 var(--space-2);
+  }
+  .footer-grid ul { list-style: none; margin: 0; padding: 0; }
+  .footer-grid li { margin-bottom: 0.5rem; }
+  .footer-grid a:hover { color: #fff; }
+  .footer-bottom {
+    padding-top: var(--space-3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav-row">
+    <a class="brand" href="#top">
+      <span class="brand-mark">ELZ</span>
+      <span class="brand-text">
+        شركة الزياد للنقل المبرد
+        <small class="en">Al-Ziyad Refrigerated Transport</small>
+      </span>
+    </a>
+
+    <nav class="main-nav" id="mainNav">
+      <ul>
+        <li><a class="nav-link" href="index.html">الرئيسية</a></li>
+        <li><a class="nav-link" href="../services/index.html">الخدمات</a></li>
+        <li><a class="nav-link" href="../our-fleet/index.html">أسطولنا</a></li>
+        <li><a class="nav-link" href="../about-us/index.html">من نحن</a></li>
+        <li><a class="nav-link" href="../contact/index.html">اتصل بنا</a></li>
+      </ul>
+    </nav>
+
+    <a class="nav-phone desktop-only" href="tel:+201067892154">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span class="en" dir="ltr">01067892154</span>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">
+      <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <h1>رواد في خدمات الشحن والنقل المبرد</h1>
+      <p class="lead">
+        نقل مجمد، مبرد، وجاف لشركائنا في مصر والمملكة العربية السعودية — بأسطول
+        حديث والتزام صارم بمعايير سلامة الغذاء وسلسلة التبريد.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="../contact/index.html">اطلب عرض سعر الآن</a>
+        <a class="btn btn-ghost" href="tel:+201067892154">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="en" dir="ltr">01067892154</span>
+        </a>
+      </div>
+      <p class="hero-photo-credit">
+        صورة توضيحية مؤقتة — بانتظار صور حقيقية للأسطول
+        <span class="placeholder">Placeholder photo</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Trust Stats Band -->
+  <section class="stats-band tight">
+    <div class="container">
+      <div class="stats-grid">
+        <div>
+          <div class="stat-label">أسطول حديث</div>
+          <div class="stat-sub en">Modern Fleet</div>
+        </div>
+        <div>
+          <div class="stat-label">مصر والمملكة العربية السعودية</div>
+          <div class="stat-sub en">Egypt &amp; Saudi Arabia Coverage</div>
+        </div>
+        <div>
+          <div class="stat-label">3 حلول نقل متكاملة</div>
+          <div class="stat-sub en">Frozen · Chilled · Dry</div>
+        </div>
+        <div>
+          <div class="stat-label">خبرة طويلة في القطاع <span class="placeholder">عدد السنوات — بيانات مطلوبة</span></div>
+          <div class="stat-sub en">Long-standing experience</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section id="services">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">خدماتنا</span>
+        <h2 class="section-title">حلول نقل تناسب كل نوع شحنة</h2>
+        <p class="section-sub">من التجميد العميق إلى النقل الجاف — أسطول واحد متكامل يغطي احتياجاتك بالكامل.</p>
+      </div>
+      <div class="cards-grid">
+        <article class="service-card">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M4.93 4.93l14.14 14.14M2 12h20M4.93 19.07l14.14-14.14"/></svg>
+          </div>
+          <span class="temp-range">-18°C أو أقل</span>
+          <h3>النقل المجمد</h3>
+          <p>للحوم والدواجن والأسماك والآيس كريم — مراقبة دقيقة لدرجة الحرارة وتوافق صارم مع معايير سلامة الغذاء.</p>
+          <a class="card-link" href="../services/index.html">تفاصيل الخدمة ←</a>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6M12 22a7 7 0 0 0 7-7c0-3-3-6-7-13-4 7-7 10-7 13a7 7 0 0 0 7 7z"/></svg>
+          </div>
+          <span class="temp-range">0°C إلى 8°C</span>
+          <h3>النقل المبرد</h3>
+          <p>للألبان والعصائر والفواكه والخضروات الطازجة — تقنية تبريد متقدمة تحافظ على الجودة.</p>
+          <a class="card-link" href="../services/index.html">تفاصيل الخدمة ←</a>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M3 11h18M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          </div>
+          <span class="temp-range">بدون تبريد</span>
+          <h3>النقل الجاف</h3>
+          <p>للمواد الجافة والمنظفات والمستلزمات — شاحنات نظيفة وآمنة وتوصيل سريع داخل وخارج المدن.</p>
+          <a class="card-link" href="../services/index.html">تفاصيل الخدمة ←</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="tight" style="background:var(--color-muted)">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">آلية العمل</span>
+        <h2 class="section-title">كيف نوصل شحنتك؟ <span class="placeholder">خطوات مقترحة — بانتظار تأكيد العميل</span></h2>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>اطلب عرض سعر</h3>
+          <p>تواصل معنا بالهاتف أو النموذج</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>تأكيد الاستلام</h3>
+          <p>نحدد موعد ومكان استلام الشحنة</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>نقل بدرجة حرارة مضبوطة</h3>
+          <p>مراقبة مستمرة طوال الرحلة</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>تسليم في الموعد</h3>
+          <p>وصول الشحنة في الوقت المتفق عليه</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries We Serve -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">قطاعاتنا</span>
+        <h2 class="section-title">نخدم قطاعات تتطلب دقة والتزامًا</h2>
+      </div>
+      <div class="industries-grid">
+        <div class="industry-chip">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/></svg>
+          الأغذية والمشروبات
+        </div>
+        <div class="industry-chip">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M9 9h6v6H9z"/></svg>
+          الأدوية والصناعات الدوائية
+        </div>
+        <div class="industry-chip">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>
+          منتجات الألبان
+        </div>
+        <div class="industry-chip">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg>
+          التجزئة والمطاعم
+        </div>
+        <div class="industry-chip">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3z"/></svg>
+          الموزعون وتجار الجملة
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Al-Ziyad -->
+  <section class="tight" style="background:var(--color-muted)">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">لماذا الزياد</span>
+        <h2 class="section-title">شريك تنقل موثوق</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <h3>أسطول حديث وتقنيات متطورة</h3>
+            <p>شاحنات ومقطورات مجهزة بأحدث أنظمة التبريد والمراقبة.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <h3>توافق صارم مع سلامة الغذاء</h3>
+            <p>إجراءات دقيقة لحماية سلسلة التبريد من الاستلام حتى التسليم.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <h3>التزام بمواعيد التسليم</h3>
+            <p>جدولة دقيقة تضمن وصول شحنتك في الوقت المحدد.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+          <div>
+            <h3>فريق مدرب وحلول مخصصة</h3>
+            <p>نتفهم احتياج كل عميل ونقدم حلول نقل مصممة له.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Fleet teaser -->
+  <section>
+    <div class="container split">
+      <div>
+        <span class="eyebrow">أسطولنا</span>
+        <h2 class="section-title">أسطول مجهز بالكامل لخدمتك</h2>
+        <p class="section-sub" style="margin-bottom:var(--space-3)">
+          مقطورات Chereau المبردة وشاحنات Mercedes Actros — جاهزة لأي نوع شحنة تحتاج تحكمًا دقيقًا في الحرارة.
+        </p>
+        <a class="btn btn-outline" href="../our-fleet/index.html">استعرض أسطولنا بالكامل</a>
+      </div>
+      <div>
+        <div class="fleet-gallery">
+          <img src="../../../../images/generated-1786870668667.png" alt="شاحنة مبردة تابعة لأسطول الزياد على الطريق">
+          <img src="../../../../images/generated-1786870881535.png" alt="مقطورة مبردة من الخلف تظهر تفاصيل نظام التبريد">
+          <img src="../../../../images/generated-1786871591189.png" alt="شاحنة مبردة أثناء التحميل في منطقة الشحن">
+        </div>
+        <p class="hero-photo-credit" style="color:var(--color-muted-fg)">
+          صور توضيحية مؤقتة — سيتم استبدالها بصور حقيقية للأسطول
+          <span class="placeholder">Placeholder photos</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coverage Area -->
+  <section class="coverage-band tight">
+    <div class="container">
+      <span class="eyebrow">مناطق التغطية</span>
+      <h2 class="section-title">نغطي مصر ونتوسع في المملكة العربية السعودية</h2>
+      <div class="coverage-list">
+        <span class="coverage-pill">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1.1rem;height:1.1rem"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          مصر — التغطية الرئيسية
+        </span>
+        <span class="coverage-pill">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:1.1rem;height:1.1rem"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          المملكة العربية السعودية — سوق التوسع
+        </span>
+        <span class="coverage-pill placeholder" style="border-style:dashed">المدن والمناطق الدقيقة — بيانات مطلوبة من العميل</span>
+      </div>
+      <p class="section-sub" style="margin-top:var(--space-3);margin-bottom:0">
+        لا تجد مدينتك في القائمة؟ تواصل معنا — نحن في مرحلة توسع مستمر.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">أسئلة شائعة</span>
+        <h2 class="section-title">إجابات على أهم استفساراتكم</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>كيف تتم مراقبة درجة الحرارة أثناء النقل؟
+            <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p>نعتمد على أنظمة تبريد ومراقبة دقيقة طوال الرحلة للحفاظ على سلسلة التبريد. تفاصيل تقنية المراقبة الدقيقة <span class="placeholder">بيانات مطلوبة من العميل</span> ستُضاف هنا بمجرد تأكيدها.</p>
+        </details>
+        <details class="faq-item">
+          <summary>ما هو الحد الأدنى لحجم الشحنة؟
+            <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p><span class="placeholder">بيانات مطلوبة من العميل</span> — تواصل معنا مباشرة وسنؤكد لك الحد الأدنى المناسب لشحنتك.</p>
+        </details>
+        <details class="faq-item">
+          <summary>هل تقدمون خدمة النقل مباشرة إلى المملكة العربية السعودية؟
+            <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p>نعم، المملكة العربية السعودية هي سوق توسع مؤكد لدينا إلى جانب مصر كسوقنا الرئيسي.</p>
+        </details>
+        <details class="faq-item">
+          <summary>ما هي سرعة تأكيد عرض السعر؟
+            <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <p><span class="placeholder">بيانات مطلوبة من العميل</span> — سنوضح هنا زمن الاستجابة الفعلي بمجرد تأكيده.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>تواصل معنا الآن لطلب عرض سعر</h2>
+      <p>فريقنا جاهز للرد على استفسارك وتقديم عرض سعر مناسب لشحنتك.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/201067892154" target="_blank" rel="noopener">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 0 0 3.6 17L2 22l5.2-1.6A11 11 0 1 0 20.5 3.5zM12 20a8.9 8.9 0 0 1-4.5-1.2l-.3-.2-3 .9.9-2.9-.2-.3A9 9 0 1 1 12 20z"/></svg>
+          تواصل عبر واتساب
+        </a>
+        <a class="btn btn-whatsapp" href="tel:+201067892154">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="en" dir="ltr">01067892154</span>
+        </a>
+        <a class="btn btn-ghost" href="../contact/index.html">صفحة اتصل بنا</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4>شركة الزياد للنقل المبرد</h4>
+        <p style="font-size:0.85rem;line-height:1.7">رواد في خدمات الشحن والنقل المبرد بمصر والمملكة العربية السعودية.</p>
+      </div>
+      <div>
+        <h4>روابط سريعة</h4>
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="../services/index.html">الخدمات</a></li>
+          <li><a href="../our-fleet/index.html">أسطولنا</a></li>
+          <li><a href="../about-us/index.html">من نحن</a></li>
+          <li><a href="../contact/index.html">اتصل بنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a class="en" dir="ltr" href="tel:+201067892154">01067892154</a></li>
+          <li><a class="en" dir="ltr" href="tel:+201060740074">01060740074</a></li>
+          <li><span class="en" dir="ltr">Fax: 0132761591</span></li>
+        </ul>
+      </div>
+      <div>
+        <h4>الأسواق التي نخدمها</h4>
+        <ul>
+          <li>مصر (رئيسي)</li>
+          <li>المملكة العربية السعودية (توسع)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 شركة الزياد للنقل المبرد. جميع الحقوق محفوظة.</span>
+      <span class="en">Al-Ziyad Refrigerated Transport Co.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var toggle = document.getElementById('navToggle');
+  var nav = document.getElementById('mainNav');
+  toggle.addEventListener('click', function () {
+    var isOpen = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+</script>
+
+</body>
+</html>

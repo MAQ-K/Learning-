@@ -21,18 +21,31 @@ Last updated: Phase 1 (`/step1-intake`, run manually via walkthrough)
 
 | Page | P2 Direction | P3 Inspiration | P4 Best-in-Field | P5 Components | P6 Pencil (final) |
 |---|---|---|---|---|---|
-| Home | ☐ | ☐ | ☐ | ☐ | ☐ |
+| Home | ☑ | ☐ | ☐ | ☐ | ☐ |
 | Services | ☐ | ☐ | ☐ | ☐ | ☐ |
 | Our Fleet | ☐ | ☐ | ☐ | ☐ | ☐ |
 | About Us | ☐ | ☐ | ☐ | ☐ | ☐ |
 | Contact | ☐ | ☐ | ☐ | ☐ | ☐ |
 
-**Currently in progress:** none — Phase 1 complete, awaiting Phase 2 start (pick a page to begin with)
+**Currently in progress:** Home page — Phase 2 (Direction) done, awaiting
+`/step3-inspiration` when ready to continue. Other pages not started (only
+Home is in scope for now).
 
 ---
 
 ## History Log
 
+- **Phase 2 — Direction (Home, 2026-08-17):** Skipped the planned Phase 1
+  reconfirmation pass (user chose to proceed with existing profile/page-plan
+  as-is). Queried `ui-ux-pro-max` for B2B logistics direction options;
+  presented 3 (Trust & Authority navy/blue, Industrial Confidence
+  navy/amber, Cold Chain Blue steel/cyan). User picked **Industrial
+  Confidence** (navy `#1E3A8A` + amber `#B45309` accent, Tajawal + Source
+  Sans 3). No existing logo/brand colors were available to anchor to — user
+  confirmed proceeding without one. Built `clients/al-ziyad/pages/home/index.html`
+  with all 12 sections from `02-page-plan.md`. Fleet/hero images use the
+  AI-generated stock photos in `images/` with a visible placeholder note,
+  since no real fleet photography exists in this repo.
 - **Phase 1 (manual walkthrough):** Profile and 5-page content plan created
   from uploaded fleet photos + 3 source documents (About Us copy, bilingual
   service articles). Market resolved as Egypt + Saudi Arabia (user
