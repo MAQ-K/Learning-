@@ -6,7 +6,7 @@
 <title>شركة الزياد للنقل المبرد - رواد في خدمات الشحن والنقل المبرد</title>
 <meta name="description" content="شركة الزياد للنقل المبرد. نقل مجمد ومبرد وجاف في مصر والمملكة العربية السعودية. أسطول حديث، التزام بالمواعيد، وتوافق صارم مع معايير سلامة الغذاء.">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800;900&display=swap');
 
   :root {
     /* Deep Ocean Cold-Chain */
@@ -15,6 +15,7 @@
     --color-secondary: #1E3A5F;
     --color-accent: #0EA5E9;
     --color-accent-dark: #0284C7;
+    --color-accent-light: #7DD3FC;
     --color-bg: #F5F9FC;
     --color-fg: #0B1220;
     --color-card: #FFFFFF;
@@ -25,8 +26,10 @@
     --color-on-primary: #FFFFFF;
     --color-on-accent: #05202E;
 
-    --font-display: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
-    --font-body: 'IBM Plex Sans Arabic', 'Segoe UI', Tahoma, sans-serif;
+    /* Alexandria — geometric sans with matched Arabic + Latin, closest
+       free equivalent to the reference's geometric grotesque */
+    --font-display: 'Alexandria', 'Segoe UI', Tahoma, sans-serif;
+    --font-body: 'Alexandria', 'Segoe UI', Tahoma, sans-serif;
 
     --space-1: 0.5rem;
     --space-2: 1rem;
@@ -105,10 +108,10 @@
     justify-content: center;
     gap: 8px;
     padding: 14px 28px;
-    border-radius: var(--radius-sm);
+    border-radius: 6px;
     font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 0.98rem;
     cursor: pointer;
     border: 2px solid transparent;
     transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
@@ -145,20 +148,50 @@
     color: var(--color-accent-dark);
     margin: 0 0 var(--space-1);
   }
+  .eyebrow-on-dark { color: var(--color-accent-light); }
+  .stats-band .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
 
-  /* ============ HEADER ============ */
+  /* ============ HERO VIEWPORT (nav + slides + stats = one screen) ============ */
+  .hero-viewport {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* ============ HEADER (floats over the hero) ============ */
   .site-header {
-    position: sticky;
+    position: absolute;
     top: 0;
+    inset-inline: 0;
     z-index: 50;
-    background: rgba(11, 18, 32, 0.96);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: background var(--transition), backdrop-filter var(--transition), border-color var(--transition);
+    border-bottom: 1px solid transparent;
+  }
+  /* solid once scrolled past the hero viewport */
+  .site-header.is-pinned {
+    position: fixed;
+    background: rgba(11, 18, 32, 0.86);
+    backdrop-filter: blur(14px) saturate(160%);
+    border-bottom-color: rgba(255,255,255,0.08);
+    animation: headerDrop 250ms ease;
+  }
+  @keyframes headerDrop {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
   }
   .header-inner {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: var(--space-3);
     height: 72px;
   }
   .brand {
@@ -189,102 +222,230 @@
   .main-nav {
     display: flex;
     align-items: center;
-    gap: var(--space-4);
   }
-  .main-nav ul { display: flex; gap: var(--space-3); }
-  .main-nav a {
-    color: rgba(255,255,255,0.82);
-    font-weight: 500;
-    font-size: 0.95rem;
-    padding: 8px 4px;
-    border-bottom: 2px solid transparent;
-    transition: color var(--transition), border-color var(--transition);
-  }
-  .main-nav a:hover, .main-nav a[aria-current="page"] {
-    color: #FFFFFF;
-    border-color: var(--color-accent);
-  }
-  .header-phone {
+  /* translucent rounded-rectangle nav bar (not a pill) */
+  .main-nav ul {
     display: flex;
     align-items: center;
-    gap: 8px;
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 8px 14px;
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: var(--radius-sm);
+    gap: 2px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(14px) saturate(160%);
+    border-radius: 8px;
+    padding: 4px;
   }
+  .main-nav a {
+    display: block;
+    color: rgba(255,255,255,0.78);
+    font-weight: 400;
+    font-size: 0.88rem;
+    padding: 8px 16px;
+    border-radius: 5px;
+    white-space: nowrap;
+    transition: color var(--transition), background var(--transition);
+  }
+  .main-nav a:hover { color: #FFFFFF; background: rgba(255,255,255,0.10); }
+  .main-nav a[aria-current="page"] {
+    color: #FFFFFF;
+    background: rgba(255,255,255,0.16);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .header-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 11px 20px;
+    border-radius: 6px;
+    white-space: nowrap;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .header-phone:hover { background: var(--color-accent-light); }
+  .header-phone:active { transform: scale(0.98); }
   .header-phone svg { flex-shrink: 0; }
   .nav-toggle {
     display: none;
-    background: none;
-    border: none;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(14px) saturate(160%);
+    border-radius: 6px;
     color: #FFFFFF;
-    padding: 8px;
+    padding: 9px;
     cursor: pointer;
+    line-height: 0;
   }
 
   @media (max-width: 900px) {
-    .main-nav ul { display: none; }
+    .main-nav ul {
+      display: none;
+      position: absolute;
+      top: 68px;
+      inset-inline: var(--space-4);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2px;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(11,18,32,0.96);
+      backdrop-filter: blur(14px) saturate(160%);
+    }
+    .main-nav ul.is-open { display: flex; }
+    .main-nav a { padding: 12px 16px; }
     .nav-toggle { display: block; }
     .header-phone span.en { display: none; }
+    .header-phone { padding: 10px 14px; }
   }
 
-  /* ============ HERO ============ */
+  /* ============ HERO SLIDER ============ */
   .hero {
     position: relative;
-    min-height: 88vh;
+    flex: 1;
+    min-height: 0;
     display: flex;
-    align-items: flex-end;
     color: #FFFFFF;
     background: var(--color-primary);
     overflow: hidden;
   }
-  .hero-bg {
+  /* one shared video layer behind every slide (cheaper than one <video> per slide) */
+  .hero-media { position: absolute; inset: 0; z-index: 0; }
+  .hero-media video,
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* legibility wash — darkest behind the RTL text on the right, opening up
+     toward the left so the footage stays visible */
+  .hero-media::after {
+    content: "";
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(180deg, rgba(11,18,32,0.55) 0%, rgba(11,18,32,0.75) 55%, rgba(11,18,32,0.96) 100%),
-      url('../../../../images/pexels/hero-27099094.jpg') center/cover no-repeat;
+      linear-gradient(to left, rgba(11,18,32,0.80) 0%, rgba(11,18,32,0.42) 45%, rgba(11,18,32,0.08) 100%),
+      linear-gradient(180deg, rgba(11,18,32,0.34) 0%, transparent 38%, rgba(11,18,32,0.38) 100%);
   }
-  .hero-inner {
+
+  .hero-slides { position: absolute; inset: 0; z-index: 1; }
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 700ms ease, visibility 0s linear 700ms;
+  }
+  .hero-slide.is-active {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 700ms ease, visibility 0s;
+  }
+  .hero-slide-content {
     position: relative;
     z-index: 1;
-    display: grid;
-    grid-template-columns: 1.3fr 0.9fr;
-    gap: var(--space-6);
-    align-items: end;
-    padding-bottom: var(--space-8);
     width: 100%;
+    padding-top: 72px;
   }
-  .hero-copy h1 {
-    font-size: clamp(2.1rem, 4.4vw, 3.6rem);
-    max-width: 16ch;
+  .hero-slide h1,
+  .hero-slide h2 {
+    font-size: clamp(2rem, 4.4vw, 3.6rem);
+    max-width: 18ch;
     margin-bottom: var(--space-3);
   }
-  .hero-copy p {
-    font-size: 1.15rem;
+  .hero-slide p {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
     color: rgba(255,255,255,0.85);
     max-width: 52ch;
     margin: 0 0 var(--space-4);
   }
   .hero-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; }
-  .hero-card {
-    background: rgba(20, 33, 50, 0.72);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: var(--radius);
-    padding: var(--space-4);
-    backdrop-filter: blur(6px);
+
+  /* cooling-range bar (moved here from the old hero card) */
+  .temp-range-bar {
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #0EA5E9 0%, #38BDF8 45%, #F59E0B 100%);
+    opacity: 0.85;
   }
-  .hero-card dl { display: grid; gap: var(--space-2); }
-  .hero-card dt { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-bottom: 2px; }
-  .hero-card dd { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+  .hero-temp {
+    max-width: 260px;
+    margin: 0 0 var(--space-4);
+  }
+  .hero-temp .temp-range-bar { margin-top: 8px; }
+  .hero-temp-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ---- slider controls ---- */
+  .hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.16);
+    backdrop-filter: blur(14px) saturate(160%);
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition);
+  }
+  .hero-arrow:hover { background: rgba(255,255,255,0.22); }
+  /* RTL: "previous" sits on the right (chevron points right), "next" on the left */
+  .hero-arrow-prev { inset-inline-start: var(--space-3); }
+  .hero-arrow-next { inset-inline-end: var(--space-3); }
+
+  .hero-dots {
+    position: absolute;
+    bottom: var(--space-4);
+    inset-inline-start: 0;
+    inset-inline-end: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.35);
+    cursor: pointer;
+    transition: background var(--transition), width var(--transition);
+  }
+  .hero-dot:hover { background: rgba(255,255,255,0.6); }
+  .hero-dot[aria-current="true"] {
+    width: 28px;
+    border-radius: 999px;
+    background: var(--color-accent);
+  }
 
   @media (max-width: 860px) {
-    .hero { min-height: 78vh; align-items: flex-end; }
-    .hero-inner { grid-template-columns: 1fr; padding-bottom: var(--space-6); }
-    .hero-card { order: 2; }
+    .hero-viewport { height: auto; }
+    .hero { min-height: 82vh; min-height: 82dvh; }
+    .hero-arrow { display: none; }
+    .hero-media::after {
+      background: linear-gradient(180deg, rgba(11,18,32,0.5) 0%, rgba(11,18,32,0.35) 35%, rgba(11,18,32,0.82) 100%);
+    }
   }
 
   /* ============ SECTION SHELLS ============ */
@@ -297,16 +458,33 @@
   .stats-band {
     background: var(--color-primary);
     color: #FFFFFF;
-    padding: var(--space-6) 0;
+    padding: 14px 0;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(255,255,255,0.07);
   }
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
-  .stat-item { border-inline-start: 3px solid var(--color-accent); padding-inline-start: var(--space-2); }
-  .stat-value { font-family: var(--font-display); font-weight: 900; font-size: 1.5rem; }
-  .stat-label { color: rgba(255,255,255,0.68); font-size: 0.9rem; margin-top: 4px; }
+  .stat-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border-inline-start: 2px solid var(--color-accent);
+    padding-inline-start: 10px;
+  }
+  .stat-icon {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 5px;
+    background: rgba(14,165,233,0.14);
+    color: var(--color-accent-light);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stat-icon svg { width: 14px; height: 14px; }
+  .stat-value { font-family: var(--font-display); font-weight: 600; font-size: 0.92rem; line-height: 1.3; }
+  .stat-label { color: rgba(255,255,255,0.6); font-size: 0.74rem; line-height: 1.35; margin-top: 1px; }
   @media (max-width: 760px) {
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
   }
@@ -324,7 +502,7 @@
     padding: var(--space-4);
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
   }
-  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: var(--color-accent); }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); border-color: var(--color-accent-light); }
   .service-icon {
     width: 52px; height: 52px;
     border-radius: var(--radius-sm);
@@ -404,7 +582,7 @@
     text-align: center;
     transition: border-color var(--transition), background var(--transition);
   }
-  .industry-chip:hover { border-color: var(--color-accent); background: var(--color-muted); }
+  .industry-chip:hover { border-color: var(--color-accent-light); background: var(--color-muted); }
   .industry-chip svg { color: var(--color-secondary); margin-bottom: 8px; }
   .industry-chip span { display: block; font-weight: 600; font-size: 0.92rem; }
 
@@ -456,6 +634,15 @@
     height: 420px;
   }
   .fleet-bento figure { margin: 0; height: 100%; overflow: hidden; border-radius: var(--radius); position: relative; }
+  .fleet-bento figure::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(14,165,233,0.32) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity var(--transition);
+  }
+  .fleet-bento figure:hover::after { opacity: 1; }
   .fleet-bento img { width: 100%; height: 100%; object-fit: cover; transition: transform 400ms ease; }
   .fleet-bento figure:hover img { transform: scale(1.05); }
   .fleet-bento figure:first-child { grid-row: 1 / 3; }
@@ -494,14 +681,20 @@
   .coverage-map {
     background: var(--color-muted);
     border-radius: var(--radius);
-    aspect-ratio: 1/1;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--color-muted-fg);
-    border: 1px dashed var(--color-border);
-    text-align: center;
-    padding: var(--space-4);
-    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-4);
   }
+  .coverage-map-country { text-align: center; max-width: 140px; }
+  .coverage-map-country svg { width: 100%; height: auto; }
+  .coverage-map-country span { display: block; margin-top: var(--space-2); font-weight: 700; font-size: 0.9rem; color: var(--color-fg); }
+  .coverage-map-country small { display: block; margin-top: 2px; font-size: 0.75rem; color: var(--color-muted-fg); }
+  .coverage-map-country.served path { fill: var(--color-accent); fill-opacity: 0.85; stroke: var(--color-accent-dark); stroke-width: 1.5; }
+  .coverage-map-country.expanding path { fill: none; stroke: var(--color-accent-dark); stroke-width: 1.5; stroke-dasharray: 3 3; }
 
   @media (max-width: 860px) {
     .coverage-section .container { grid-template-columns: 1fr; }
@@ -586,22 +779,46 @@
   /* ============ SCROLL REVEAL ============ */
   .reveal { opacity: 0; transform: translateY(16px); transition: opacity 500ms ease, transform 500ms ease; }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+  /* stagger grid children so they cascade in instead of firing together */
+  .stats-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+  .stats-grid .reveal:nth-child(2) { transition-delay: 80ms; }
+  .stats-grid .reveal:nth-child(3) { transition-delay: 160ms; }
+  .stats-grid .reveal:nth-child(4) { transition-delay: 240ms; }
+  .services-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+  .services-grid .reveal:nth-child(2) { transition-delay: 100ms; }
+  .services-grid .reveal:nth-child(3) { transition-delay: 200ms; }
+  .industries-grid .reveal:nth-child(1) { transition-delay: 0ms; }
+  .industries-grid .reveal:nth-child(2) { transition-delay: 70ms; }
+  .industries-grid .reveal:nth-child(3) { transition-delay: 140ms; }
+  .industries-grid .reveal:nth-child(4) { transition-delay: 210ms; }
+  .industries-grid .reveal:nth-child(5) { transition-delay: 280ms; }
+  .why-points .reveal:nth-child(1) { transition-delay: 0ms; }
+  .why-points .reveal:nth-child(2) { transition-delay: 90ms; }
+  .why-points .reveal:nth-child(3) { transition-delay: 180ms; }
+  .why-points .reveal:nth-child(4) { transition-delay: 270ms; }
+
   @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
+    .reveal { opacity: 1; transform: none; transition: none; transition-delay: 0ms !important; }
   }
 </style>
 </head>
 <body>
 
+  <!-- ==========================================================
+       HERO VIEWPORT — header + slider + stats band = one screen
+       ========================================================== -->
+  <div class="hero-viewport">
+
   <!-- ============ HEADER ============ -->
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <div class="container header-inner">
       <a href="index.html" class="brand" aria-label="شركة الزياد للنقل المبرد - الصفحة الرئيسية">
         <span class="brand-mark" aria-hidden="true">ز</span>
         <span class="brand-name">الزياد للنقل المبرد</span>
       </a>
       <nav class="main-nav" aria-label="التنقل الرئيسي">
-        <ul>
+        <ul id="mainNavList">
           <li><a href="index.html" aria-current="page">الرئيسية</a></li>
           <li><a href="../services/index.html">خدماتنا</a></li>
           <li><a href="../our-fleet/index.html">أسطولنا</a></li>
@@ -609,68 +826,144 @@
           <li><a href="../contact/index.html">تواصل معنا</a></li>
         </ul>
       </nav>
-      <a href="tel:+201067892154" class="header-phone">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        <span class="en" dir="ltr">01067892154</span>
-      </a>
-      <button class="nav-toggle" aria-label="فتح قائمة التنقل" aria-expanded="false" id="navToggle">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+      <div class="header-actions">
+        <a href="tel:+201067892154" class="header-phone">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="en" dir="ltr">01067892154</span>
+        </a>
+        <button class="nav-toggle" aria-label="فتح قائمة التنقل" aria-expanded="false" aria-controls="mainNavList" id="navToggle">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero">
-    <div class="hero-bg" role="img" aria-label="شاحنة نقل مبرد على الطريق (صورة توضيحية)"></div>
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <h1>رواد في خدمات الشحن والنقل المبرد</h1>
-        <p>نقل مجمد ومبرد وجاف بأسطول حديث والتزام صارم بسلاسة التبريد، لعملاء الأغذية والأدوية وتجار الجملة في مصر والمملكة العربية السعودية.</p>
-        <div class="hero-actions">
-          <a href="../contact/index.html" class="btn btn-primary">اطلب عرض سعر</a>
-          <a href="../services/index.html" class="btn btn-outline">تعرف على خدماتنا</a>
+  <!-- ============ HERO SLIDER ============ -->
+  <section class="hero" id="heroSlider" aria-roledescription="carousel" aria-label="عرض الخدمات">
+
+    <!-- shared background video for all slides.
+         Swap to video/hero-bg-hq.mp4 if this encode looks too soft. -->
+    <div class="hero-media" role="img" aria-label="لقطات لعمليات النقل المبرد (خلفية توضيحية)">
+      <video id="heroVideo" autoplay muted loop playsinline preload="metadata"
+             poster="../../../../images/pexels/hero-27099094.jpg">
+        <source src="../../../../images/video/hero-bg.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="hero-slides">
+
+      <!-- Slide 1 — main tagline -->
+      <div class="hero-slide is-active" role="group" aria-roledescription="شريحة" aria-label="1 من 3">
+        <div class="container hero-slide-content">
+          <h1>رواد في خدمات الشحن والنقل المبرد</h1>
+          <p>نقل مجمد ومبرد وجاف بأسطول حديث والتزام صارم بسلاسة التبريد، لعملاء الأغذية والأدوية وتجار الجملة في مصر والمملكة العربية السعودية.</p>
+          <div class="hero-actions">
+            <a href="../contact/index.html" class="btn btn-primary">اطلب عرض سعر</a>
+            <a href="../services/index.html" class="btn btn-outline">تعرف على خدماتنا</a>
+          </div>
         </div>
       </div>
-      <div class="hero-card reveal">
-        <dl>
-          <div>
-            <dt>الأسواق المخدومة</dt>
-            <dd>مصر والمملكة العربية السعودية</dd>
+
+      <!-- Slide 2 — frozen transport -->
+      <div class="hero-slide" role="group" aria-roledescription="شريحة" aria-label="2 من 3">
+        <div class="container hero-slide-content">
+          <h2>النقل المجمد</h2>
+          <p>للحوم والدواجن والأسماك والآيس كريم، بمراقبة دقيقة لدرجة الحرارة والتزام صارم بمعايير سلامة الغذاء.</p>
+          <div class="hero-temp">
+            <div class="hero-temp-label">
+              <span>نطاق التجميد</span>
+              <span class="en" dir="ltr">-18°C or lower</span>
+            </div>
+            <div class="temp-range-bar" aria-hidden="true"></div>
           </div>
-          <div>
-            <dt>نطاق التبريد</dt>
-            <dd><span class="en" dir="ltr">-18°C</span> إلى <span class="en" dir="ltr">8°C</span></dd>
+          <div class="hero-actions">
+            <a href="../contact/index.html" class="btn btn-primary">اطلب عرض سعر</a>
+            <a href="../services/index.html#frozen" class="btn btn-outline">تفاصيل الخدمة</a>
           </div>
-          <div>
-            <dt>الأسطول</dt>
-            <dd>أسطول حديث بتقنيات تبريد متقدمة</dd>
-          </div>
-        </dl>
+        </div>
       </div>
+
+      <!-- Slide 3 — chilled transport -->
+      <div class="hero-slide" role="group" aria-roledescription="شريحة" aria-label="3 من 3">
+        <div class="container hero-slide-content">
+          <h2>النقل المبرد</h2>
+          <p>للألبان والعصائر والفواكه والخضروات الطازجة، بتقنية تبريد متقدمة تحافظ على الجودة طوال الرحلة.</p>
+          <div class="hero-temp">
+            <div class="hero-temp-label">
+              <span>نطاق التبريد</span>
+              <span class="en" dir="ltr">0°C to 8°C</span>
+            </div>
+            <div class="temp-range-bar" aria-hidden="true"></div>
+          </div>
+          <div class="hero-actions">
+            <a href="../contact/index.html" class="btn btn-primary">اطلب عرض سعر</a>
+            <a href="../services/index.html#chilled" class="btn btn-outline">تفاصيل الخدمة</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <button class="hero-arrow hero-arrow-prev" id="heroPrev" aria-label="الشريحة السابقة">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <button class="hero-arrow hero-arrow-next" id="heroNext" aria-label="الشريحة التالية">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+
+    <div class="hero-dots" id="heroDots" role="tablist" aria-label="اختيار الشريحة">
+      <button class="hero-dot" role="tab" aria-current="true" aria-label="الشريحة 1"></button>
+      <button class="hero-dot" role="tab" aria-current="false" aria-label="الشريحة 2"></button>
+      <button class="hero-dot" role="tab" aria-current="false" aria-label="الشريحة 3"></button>
     </div>
   </section>
 
   <!-- ============ TRUST STATS ============ -->
   <section class="stats-band">
+    <div class="container">
+      <p class="eyebrow eyebrow-on-dark reveal">أداؤنا بالأرقام</p>
+    </div>
     <div class="container stats-grid">
       <div class="stat-item reveal">
-        <div class="stat-value">أسطول حديث</div>
-        <div class="stat-label">مقطورات Chereau وجرارات Mercedes Actros</div>
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <div class="stat-value">أسطول حديث</div>
+          <div class="stat-label">مقطورات Chereau وجرارات Mercedes Actros</div>
+        </div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value">خبرة طويلة</div>
-        <div class="stat-label">تشغيل راسخ في قطاع النقل المبرد</div>
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div>
+          <div class="stat-value">خبرة طويلة</div>
+          <div class="stat-label">تشغيل راسخ في قطاع النقل المبرد</div>
+        </div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value">مصر والسعودية</div>
-        <div class="stat-label">تغطية إقليمية وخطط توسع مستمرة</div>
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22V4a2 2 0 0 1 2-2h9l5 5v13a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M15 2v5h5"/></svg>
+        </div>
+        <div>
+          <div class="stat-value">مصر والسعودية</div>
+          <div class="stat-label">تغطية إقليمية وخطط توسع مستمرة</div>
+        </div>
       </div>
       <div class="stat-item reveal">
-        <div class="stat-value">3 أنظمة نقل</div>
-        <div class="stat-label">مجمد، مبرد، وجاف تحت مظلة واحدة</div>
+        <div class="stat-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20M12 2v20M4.93 4.93l14.14 14.14M19.07 4.93 4.93 19.07"/></svg>
+        </div>
+        <div>
+          <div class="stat-value">3 أنظمة نقل</div>
+          <div class="stat-label">مجمد، مبرد، وجاف تحت مظلة واحدة</div>
+        </div>
       </div>
     </div>
   </section>
+
+  </div><!-- /.hero-viewport -->
 
   <!-- ============ SERVICES OVERVIEW ============ -->
   <section id="services" class="services-section">
@@ -880,8 +1173,21 @@
         </div>
         <span class="placeholder-note">بحاجة لتأكيد العميل: المدن والمناطق الدقيقة</span>
       </div>
-      <div class="coverage-map" role="img" aria-label="خريطة توضيحية لنطاق التغطية">
-        خريطة تفاعلية للتغطية<br>تُضاف عند توفر المدن والمناطق الدقيقة
+      <div class="coverage-map" role="img" aria-label="خريطة توضيحية: مصر ضمن نطاق التغطية الحالي، والمملكة العربية السعودية سوق توسع مستهدف">
+        <div class="coverage-map-country served">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M8,12 L68,12 L68,26 L86,26 L94,52 L68,44 L68,88 L8,88 Z"/>
+          </svg>
+          <span>مصر</span>
+          <small>نطاق التغطية الحالي</small>
+        </div>
+        <div class="coverage-map-country expanding">
+          <svg viewBox="0 0 100 100" aria-hidden="true">
+            <path d="M14,18 L68,6 L94,38 L84,88 L30,94 L4,58 Z"/>
+          </svg>
+          <span>المملكة العربية السعودية</span>
+          <small>سوق التوسع المستهدف</small>
+        </div>
       </div>
     </div>
   </section>
@@ -998,21 +1304,107 @@
 
   <script>
     (function () {
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Hero background video: hold on the poster frame if the user prefers
+      // reduced motion, rather than looping footage behind the headline
+      var heroVideo = document.getElementById('heroVideo');
+      if (heroVideo && reduceMotion) {
+        heroVideo.autoplay = false;
+        heroVideo.removeAttribute('autoplay');
+        heroVideo.pause();
+      }
+
       // Mobile nav toggle
       var navToggle = document.getElementById('navToggle');
-      var mainNav = document.querySelector('.main-nav ul');
+      var mainNav = document.getElementById('mainNavList');
       if (navToggle && mainNav) {
         navToggle.addEventListener('click', function () {
           var isOpen = navToggle.getAttribute('aria-expanded') === 'true';
           navToggle.setAttribute('aria-expanded', String(!isOpen));
-          mainNav.style.display = isOpen ? '' : 'flex';
-          mainNav.style.flexDirection = 'column';
-          mainNav.style.position = 'absolute';
-          mainNav.style.top = '72px';
-          mainNav.style.insetInline = '0';
-          mainNav.style.background = 'rgba(11,18,32,0.98)';
-          mainNav.style.padding = '16px';
+          mainNav.classList.toggle('is-open', !isOpen);
         });
+      }
+
+      // Pin the header once the hero viewport has scrolled past
+      var siteHeader = document.getElementById('siteHeader');
+      var heroViewport = document.querySelector('.hero-viewport');
+      if (siteHeader && heroViewport) {
+        var syncHeader = function () {
+          var pastHero = window.scrollY > heroViewport.offsetHeight - 72;
+          siteHeader.classList.toggle('is-pinned', pastHero);
+        };
+        syncHeader();
+        window.addEventListener('scroll', syncHeader, { passive: true });
+        window.addEventListener('resize', syncHeader);
+      }
+
+      // Hero slider
+      var heroSlider = document.getElementById('heroSlider');
+      if (heroSlider) {
+        var slides = heroSlider.querySelectorAll('.hero-slide');
+        var dots = heroSlider.querySelectorAll('.hero-dot');
+        var current = 0;
+        var timer = null;
+        var DELAY = 6000;
+
+        var goTo = function (index) {
+          current = (index + slides.length) % slides.length;
+          slides.forEach(function (slide, i) {
+            var active = i === current;
+            slide.classList.toggle('is-active', active);
+            slide.setAttribute('aria-hidden', String(!active));
+            // keep offscreen slides out of the tab order
+            slide.querySelectorAll('a, button').forEach(function (el) {
+              el.tabIndex = active ? 0 : -1;
+            });
+          });
+          dots.forEach(function (dot, i) {
+            dot.setAttribute('aria-current', String(i === current));
+          });
+        };
+
+        var stop = function () { if (timer) { clearInterval(timer); timer = null; } };
+        var start = function () {
+          if (reduceMotion || timer) return;
+          timer = setInterval(function () { goTo(current + 1); }, DELAY);
+        };
+        var restart = function () { stop(); start(); };
+
+        dots.forEach(function (dot, i) {
+          dot.addEventListener('click', function () { goTo(i); restart(); });
+        });
+
+        var prevBtn = document.getElementById('heroPrev');
+        var nextBtn = document.getElementById('heroNext');
+        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(current - 1); restart(); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(current + 1); restart(); });
+
+        // pause while the user is reading or interacting
+        heroSlider.addEventListener('mouseenter', stop);
+        heroSlider.addEventListener('mouseleave', start);
+        heroSlider.addEventListener('focusin', stop);
+        heroSlider.addEventListener('focusout', start);
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) { stop(); } else { start(); }
+        });
+
+        // swipe (RTL: swiping right advances)
+        var touchStartX = null;
+        heroSlider.addEventListener('touchstart', function (e) {
+          touchStartX = e.changedTouches[0].clientX;
+          stop();
+        }, { passive: true });
+        heroSlider.addEventListener('touchend', function (e) {
+          if (touchStartX === null) return;
+          var delta = e.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(delta) > 50) { goTo(current + (delta > 0 ? 1 : -1)); }
+          touchStartX = null;
+          start();
+        }, { passive: true });
+
+        goTo(0);
+        start();
       }
 
       // FAQ accordion
@@ -1031,7 +1423,6 @@
       });
 
       // Scroll reveal
-      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var revealEls = document.querySelectorAll('.reveal');
       if (reduceMotion || !('IntersectionObserver' in window)) {
         revealEls.forEach(function (el) { el.classList.add('is-visible'); });
