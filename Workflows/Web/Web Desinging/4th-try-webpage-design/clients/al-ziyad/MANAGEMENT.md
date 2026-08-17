@@ -27,32 +27,48 @@ Last updated: Phase 1 (`/step1-intake`, run manually via walkthrough)
 | About Us | ☐ | ☐ | ☐ | ☐ | ☐ |
 | Contact | ☐ | ☐ | ☐ | ☐ | ☐ |
 
-**Currently in progress:** Home page — Phase 2 (Direction) done, plus an
-ad-hoc full-page 21st.dev component pass (see below, run out of order).
-Awaiting `/step3-inspiration` next. Other pages not started (only Home is
-in scope for now).
+**Currently in progress:** Home page — Phase 2 (Direction) redone
+(2026-08-17, second pass) with a new direction, replacing the prior
+"Industrial Confidence" build and the ad-hoc 21st.dev component pass
+that sat on top of it (both superseded, not preserved — user chose
+overwrite with no backup). Awaiting `/step3-inspiration` next. Other
+pages not started (only Home is in scope for now).
 
 ---
 
 ## History Log
 
-- **Ad-hoc — 21st.dev component pass (Home, 2026-08-17):** Run out of
-  pipeline order at user's request, right after connecting the 21st.dev
-  MCP. 21st's free tier caps source retrieval at 2 components/day (reset
-  2026-08-18 00:00 UTC) — got real code for Nav ("Header Navbar",
-  eldoraui/header-02) and Hero ("Editorial Image Hero",
-  felipemenezes098/hero-07), adapted from React/Tailwind to plain HTML/CSS/
-  vanilla JS. Once the cap hit, user chose to keep going: the remaining
-  ~8 sections (stats, service cards, how-it-works, industries, fleet
-  gallery, FAQ, CTA, footer) were rebuilt as original code inspired by
-  each candidate's name/description/preview only (no source was ever
-  fetched for these) — FAQ went from native `<details>` to a proper
-  JS accordion with real animated height + full ARIA. All
-  reduced-motion guarded. No content/structure changes anywhere. Full
-  section-by-section breakdown in `pages/home/notes.md`. Effectively
-  covers Home's component work — a later `/step5-components` run for this
-  page should build on this rather than redo it.
-- **Phase 2 — Direction (Home, 2026-08-17):** Skipped the planned Phase 1
+- **Phase 2 — Direction REDO (Home, 2026-08-17):** User asked to redo
+  Phase 2 from scratch and to consult all available UI/design skills
+  (`ui-ux-pro-max`, `frontend-ui-ux-omo`, `design-taste-frontend`,
+  `ui-styling`, `premium-frontend-ui`) rather than just the default
+  `ui-ux-pro-max`. Queried `ui-ux-pro-max` design-system + color +
+  typography domains for B2B refrigerated logistics; applied
+  `design-taste-frontend`'s anti-slop rules (accent-lock discipline,
+  no default AI-blue-SaaS palette, layout-family variety, no em-dashes,
+  reduced-motion guarding) on top of it. Presented 3 new direction
+  options, deliberately different from the prior "Industrial Confidence"
+  pick: Steel & Signal Orange, Deep Ocean Cold-Chain, Slate & Amber
+  Freight. User picked **Deep Ocean Cold-Chain** (near-black navy
+  `#0B1220` + icy cyan accent `#0EA5E9`, evokes refrigeration directly).
+  Typography: Tajawal (display) + IBM Plex Sans Arabic (body), both with
+  Latin subsets for bilingual numbers/EN strings. Rebuilt
+  `clients/al-ziyad/pages/home/index.html` from scratch with this
+  direction, all 12 sections from `02-page-plan.md`, varied layout
+  families per section (dark stats band, bento fleet gallery, asymmetric
+  split "Why Al-Ziyad", accordion FAQ) to avoid repetitive AI-slop
+  rhythm. The prior build (Industrial Confidence navy/amber + the
+  ad-hoc 21st.dev Nav/Hero component pass) was overwritten with no
+  backup per explicit user choice — that 21st.dev sourcing work is gone
+  and would need to be redone in a future `/step5-components` pass.
+- **Ad-hoc — 21st.dev component pass (Home, 2026-08-17, SUPERSEDED):**
+  Original entry preserved for history only; the resulting code no
+  longer exists in `index.html` after the Phase 2 redo above. Ran out of
+  pipeline order right after connecting the 21st.dev MCP; got real code
+  for Nav and Hero (2/day free-tier cap), rebuilt ~8 more sections from
+  candidate names/descriptions only. See `pages/home/notes.md` for the
+  original breakdown (also stale relative to the current file).
+- **Phase 2 — Direction, first pass (Home, 2026-08-17, SUPERSEDED):** Skipped the planned Phase 1
   reconfirmation pass (user chose to proceed with existing profile/page-plan
   as-is). Queried `ui-ux-pro-max` for B2B logistics direction options;
   presented 3 (Trust & Authority navy/blue, Industrial Confidence
@@ -70,6 +86,22 @@ in scope for now).
   Egyptian truck plates). Page structure locked: Home, Services (single
   page, 3 sections), Our Fleet, About Us, Contact (simple form, no
   multi-step).
+
+- **Photos — Pexels swap (Home, 2026-08-17):** User provided a Pexels API
+  key and asked to use real stock photography instead of the AI-generated
+  placeholder truck images. Downloaded 5 licensed (free, no attribution
+  required) photos into `images/pexels/`, resized/compressed for web
+  (78% JPEG quality, capped at 1200-1920px wide): hero background
+  (`hero-27099094.jpg`), 3 fleet-gallery bento images (`fleet-loading-
+  27099093.jpg`, `fleet-dock-5876475.jpg`, `fleet-highway-39000647.jpg`),
+  and the "Why Al-Ziyad" side visual (`why-9309636.jpg`). These are
+  generic stock trucks, not Al-Ziyad's actual fleet, so alt text and the
+  Fleet-teaser section copy were kept honest ("صورة توضيحية" /
+  illustrative) with a placeholder-note flag, since `02-page-plan.md`'s
+  rationale for that section specifically bets on REAL fleet photos as a
+  differentiator over competitors' stock imagery. Swap for real client
+  fleet photos once available. Old AI-generated images in `images/`
+  (root) are untouched and still available if needed elsewhere.
 
 ---
 
