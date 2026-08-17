@@ -241,17 +241,42 @@
       inset-inline: 0;
       top: 100%;
       background: var(--color-card);
-      border-bottom: 1px solid var(--color-border);
       flex-direction: column;
       gap: 0;
-      padding: var(--space-2) var(--space-3);
+      padding: var(--space-3) var(--space-3) var(--space-2);
       display: none;
     }
+    /* double rule above the mobile panel, echoing 21st.dev "Header Navbar" (eldoraui/header-02) plus-grid border treatment */
+    nav.main-nav ul::before {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      top: 0;
+      border-top: 1px solid var(--color-border);
+      box-shadow: 0 6px 0 -5px var(--color-border);
+    }
     nav.main-nav.open ul { display: flex; }
-    nav.main-nav ul li { width: 100%; }
+    nav.main-nav ul li {
+      width: 100%;
+      opacity: 0;
+      transform: translateY(-6px);
+      animation: navLinkIn 0.22s ease forwards;
+    }
+    nav.main-nav.open ul li:nth-child(1) { animation-delay: 0.02s; }
+    nav.main-nav.open ul li:nth-child(2) { animation-delay: 0.07s; }
+    nav.main-nav.open ul li:nth-child(3) { animation-delay: 0.12s; }
+    nav.main-nav.open ul li:nth-child(4) { animation-delay: 0.17s; }
+    nav.main-nav.open ul li:nth-child(5) { animation-delay: 0.22s; }
     nav.main-nav a.nav-link { display: block; padding: 0.75rem 0; }
     .nav-toggle { display: inline-flex; }
     .nav-phone.desktop-only { display: none; }
+  }
+
+  @keyframes navLinkIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    nav.main-nav ul li { animation: none !important; opacity: 1 !important; transform: none !important; }
   }
 
   /* ---------- Hero ---------- */
@@ -266,6 +291,14 @@
     align-items: center;
   }
   .hero-inner { max-width: 720px; }
+  /* decorative rule ahead of the headline, echoing 21st.dev "Editorial Image Hero" (felipemenezes098/hero-07) tagline treatment */
+  .hero-rule {
+    width: 48px;
+    height: 3px;
+    background: var(--color-accent);
+    border-radius: 2px;
+    margin: 0 0 var(--space-2);
+  }
   .hero h1 {
     font-size: clamp(2rem, 4.5vw, 3.25rem);
     font-weight: 900;
@@ -279,6 +312,20 @@
     max-width: 55ch;
   }
   .hero-ctas { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+  [data-reveal="1"] { transition-delay: 0.05s; }
+  [data-reveal="2"] { transition-delay: 0.15s; }
+  [data-reveal="3"] { transition-delay: 0.25s; }
+  [data-reveal="4"] { transition-delay: 0.35s; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  }
   .hero-photo-credit {
     font-size: 0.7rem;
     color: rgba(255,255,255,0.6);
@@ -291,12 +338,36 @@
     color: #fff;
     padding: var(--space-6) 0;
   }
+  /* pattern inspired by 21st.dev "Bold Stats" (uilayout.contact) — icon-led figures with dividers between them */
   .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--space-4);
     text-align: center;
   }
+  .stat-item {
+    padding: var(--space-2);
+    position: relative;
+    transition: transform var(--transition);
+  }
+  .stat-item:hover { transform: translateY(-3px); }
+  .stat-item:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: 0;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: rgba(255,255,255,0.18);
+  }
+  @media (max-width: 600px) { .stat-item:not(:first-child)::before { display: none; } }
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+    margin: 0 auto var(--space-1);
+    color: var(--color-accent);
+  }
+  .stat-icon .icon { width: 100%; height: 100%; }
   .stat-label {
     font-size: 1.05rem;
     font-weight: 700;
@@ -313,15 +384,30 @@
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: var(--space-4);
   }
+  /* card treatment inspired by 21st.dev "Feature 72" (shadcnblockscom) — top accent bar + icon color shift on hover */
   .service-card {
+    position: relative;
     background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     padding: var(--space-4);
     box-shadow: var(--shadow-card);
+    overflow: hidden;
     transition: transform var(--transition), box-shadow var(--transition);
   }
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform var(--transition);
+  }
   .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lift); }
+  .service-card:hover::before { transform: scaleX(1); }
   .service-icon {
     width: 52px;
     height: 52px;
@@ -332,7 +418,9 @@
     align-items: center;
     justify-content: center;
     margin-bottom: var(--space-2);
+    transition: background var(--transition), color var(--transition);
   }
+  .service-card:hover .service-icon { background: var(--color-primary); color: #fff; }
   .service-card h3 { margin: 0 0 0.4rem; font-size: 1.15rem; }
   .service-card p { margin: 0 0 var(--space-2); color: var(--color-muted-fg); }
   .service-card .temp-range {
@@ -354,6 +442,7 @@
   }
 
   /* ---------- How It Works ---------- */
+  /* connecting line between steps, inspired by 21st.dev "How It Works Steps" (7ovr) */
   .steps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -361,10 +450,23 @@
     counter-reset: step;
   }
   .step {
+    position: relative;
     text-align: center;
     padding: var(--space-3);
   }
+  .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 24px;
+    inset-inline-start: calc(50% + 34px);
+    inset-inline-end: calc(-50% + 34px);
+    height: 2px;
+    background: repeating-linear-gradient(to right, var(--color-border) 0 6px, transparent 6px 12px);
+  }
+  @media (max-width: 700px) { .step:not(:last-child)::after { display: none; } }
   .step-num {
+    position: relative;
+    z-index: 1;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -394,8 +496,18 @@
     align-items: center;
     gap: var(--space-2);
     font-weight: 700;
+    transition: transform var(--transition), border-color var(--transition);
   }
-  .industry-chip .icon { color: var(--color-accent-dark); }
+  .industry-chip:hover { transform: translateY(-3px); border-color: var(--color-accent); }
+  .industry-chip .icon {
+    color: var(--color-accent-dark);
+    background: var(--color-muted);
+    border-radius: 50%;
+    padding: 6px;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+  }
 
   /* ---------- Why Al-Ziyad ---------- */
   .why-grid {
@@ -416,19 +528,33 @@
   .why-item p { margin: 0; color: var(--color-muted-fg); }
 
   /* ---------- Fleet teaser ---------- */
+  /* asymmetric layout inspired by 21st.dev "Bento Grid" (lavikatiyar) — one lead image + two stacked */
   .fleet-gallery {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1.4fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
     gap: var(--space-2);
   }
-  .fleet-gallery img {
+  .fleet-gallery figure {
+    margin: 0;
     border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .fleet-gallery figure:first-child { grid-row: span 2; }
+  .fleet-gallery img {
     aspect-ratio: 4 / 3;
     object-fit: cover;
     width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.35s ease;
   }
+  .fleet-gallery figure:first-child img { aspect-ratio: 4 / 5; }
+  .fleet-gallery figure:hover img { transform: scale(1.06); }
   @media (max-width: 700px) {
-    .fleet-gallery { grid-template-columns: 1fr; }
+    .fleet-gallery { grid-template-columns: 1fr; grid-template-rows: none; }
+    .fleet-gallery figure:first-child { grid-row: auto; }
+    .fleet-gallery figure:first-child img { aspect-ratio: 4 / 3; }
   }
 
   .split {
@@ -463,37 +589,70 @@
   }
 
   /* ---------- FAQ ---------- */
+  /* accordion pattern inspired by 21st.dev "Accordion" (ddoemonn) — button+panel with animated height, single-open */
   .faq-list { max-width: 760px; margin: 0 auto; }
-  details.faq-item {
+  .faq-item {
     background: var(--color-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    padding: var(--space-2) var(--space-3);
     margin-bottom: var(--space-2);
+    overflow: hidden;
   }
-  details.faq-item summary {
+  .faq-trigger {
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
     cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
     font-weight: 700;
-    list-style: none;
+    color: inherit;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
   }
-  details.faq-item summary::-webkit-details-marker { display: none; }
-  details.faq-item summary .chevron { transition: transform var(--transition); flex-shrink: 0; }
-  details.faq-item[open] summary .chevron { transform: rotate(180deg); }
-  details.faq-item p {
+  .faq-trigger:focus-visible { outline: 3px solid var(--color-accent); outline-offset: -3px; }
+  .faq-trigger .chevron { transition: transform var(--transition); flex-shrink: 0; }
+  .faq-trigger[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+  .faq-panel.is-collapsed { grid-template-rows: 0fr; }
+  .faq-panel-inner { overflow: hidden; min-height: 0; }
+  .faq-panel-inner p {
     color: var(--color-muted-fg);
-    margin: var(--space-2) 0 0;
+    margin: 0;
+    padding: 0 var(--space-3) var(--space-3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .faq-panel { transition: none; }
   }
 
   /* ---------- CTA band ---------- */
+  /* centered CTA treatment inspired by 21st.dev "Cta 11" (shadcnblockscom), plus a subtle radial accent glow */
   .cta-band {
+    position: relative;
     background: linear-gradient(120deg, var(--color-primary), var(--color-primary-dark));
     color: #fff;
     text-align: center;
+    overflow: hidden;
   }
+  .cta-band::before {
+    content: "";
+    position: absolute;
+    top: -60%;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    width: 640px;
+    height: 640px;
+    background: radial-gradient(circle, rgba(180,83,9,0.35) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .cta-band .container { position: relative; }
   .cta-band h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 0 0 var(--space-2); font-weight: 900; }
   .cta-band p { color: rgba(255,255,255,0.85); margin: 0 0 var(--space-4); }
   .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-2); }
@@ -501,11 +660,21 @@
   .btn-whatsapp:hover { background: #0d6e63; }
 
   /* ---------- Footer ---------- */
+  /* structure inspired by 21st.dev "Footer" (sshahaider) — accent top border, underline-on-hover links */
   footer.site-footer {
     background: var(--color-fg);
     color: rgba(255,255,255,0.8);
     padding: var(--space-8) 0 var(--space-4);
+    border-top: 3px solid var(--color-accent);
   }
+  .footer-grid a {
+    transition: color var(--transition);
+    background-image: linear-gradient(var(--color-accent), var(--color-accent));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+  }
+  .footer-grid a:hover { background-size: 100% 1px; }
   .footer-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -574,19 +743,20 @@
   <!-- Hero -->
   <section class="hero">
     <div class="container hero-inner">
-      <h1>رواد في خدمات الشحن والنقل المبرد</h1>
-      <p class="lead">
+      <div class="hero-rule" data-reveal="1"></div>
+      <h1 data-reveal="1">رواد في خدمات الشحن والنقل المبرد</h1>
+      <p class="lead" data-reveal="2">
         نقل مجمد، مبرد، وجاف لشركائنا في مصر والمملكة العربية السعودية — بأسطول
         حديث والتزام صارم بمعايير سلامة الغذاء وسلسلة التبريد.
       </p>
-      <div class="hero-ctas">
+      <div class="hero-ctas" data-reveal="3">
         <a class="btn btn-primary" href="../contact/index.html">اطلب عرض سعر الآن</a>
         <a class="btn btn-ghost" href="tel:+201067892154">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <span class="en" dir="ltr">01067892154</span>
         </a>
       </div>
-      <p class="hero-photo-credit">
+      <p class="hero-photo-credit" data-reveal="4">
         صورة توضيحية مؤقتة — بانتظار صور حقيقية للأسطول
         <span class="placeholder">Placeholder photo</span>
       </p>
@@ -597,19 +767,23 @@
   <section class="stats-band tight">
     <div class="container">
       <div class="stats-grid">
-        <div>
+        <div class="stat-item">
+          <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="7" width="15" height="13" rx="1"/><path d="M16 11h4l3 3v6h-7z"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg></div>
           <div class="stat-label">أسطول حديث</div>
           <div class="stat-sub en">Modern Fleet</div>
         </div>
-        <div>
+        <div class="stat-item">
+          <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
           <div class="stat-label">مصر والمملكة العربية السعودية</div>
           <div class="stat-sub en">Egypt &amp; Saudi Arabia Coverage</div>
         </div>
-        <div>
+        <div class="stat-item">
+          <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M4.93 4.93l14.14 14.14M2 12h20M4.93 19.07l14.14-14.14"/></svg></div>
           <div class="stat-label">3 حلول نقل متكاملة</div>
           <div class="stat-sub en">Frozen · Chilled · Dry</div>
         </div>
-        <div>
+        <div class="stat-item">
+          <div class="stat-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
           <div class="stat-label">خبرة طويلة في القطاع <span class="placeholder">عدد السنوات — بيانات مطلوبة</span></div>
           <div class="stat-sub en">Long-standing experience</div>
         </div>
@@ -774,9 +948,9 @@
       </div>
       <div>
         <div class="fleet-gallery">
-          <img src="../../../../images/generated-1786870668667.png" alt="شاحنة مبردة تابعة لأسطول الزياد على الطريق">
-          <img src="../../../../images/generated-1786870881535.png" alt="مقطورة مبردة من الخلف تظهر تفاصيل نظام التبريد">
-          <img src="../../../../images/generated-1786871591189.png" alt="شاحنة مبردة أثناء التحميل في منطقة الشحن">
+          <figure><img src="../../../../images/generated-1786870668667.png" alt="شاحنة مبردة تابعة لأسطول الزياد على الطريق"></figure>
+          <figure><img src="../../../../images/generated-1786870881535.png" alt="مقطورة مبردة من الخلف تظهر تفاصيل نظام التبريد"></figure>
+          <figure><img src="../../../../images/generated-1786871591189.png" alt="شاحنة مبردة أثناء التحميل في منطقة الشحن"></figure>
         </div>
         <p class="hero-photo-credit" style="color:var(--color-muted-fg)">
           صور توضيحية مؤقتة — سيتم استبدالها بصور حقيقية للأسطول
@@ -815,31 +989,51 @@
         <span class="eyebrow">أسئلة شائعة</span>
         <h2 class="section-title">إجابات على أهم استفساراتكم</h2>
       </div>
-      <div class="faq-list">
-        <details class="faq-item" open>
-          <summary>كيف تتم مراقبة درجة الحرارة أثناء النقل؟
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <h3 style="margin:0"><button class="faq-trigger" aria-expanded="true" aria-controls="faq-panel-1" id="faq-trigger-1">
+            كيف تتم مراقبة درجة الحرارة أثناء النقل؟
             <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p>نعتمد على أنظمة تبريد ومراقبة دقيقة طوال الرحلة للحفاظ على سلسلة التبريد. تفاصيل تقنية المراقبة الدقيقة <span class="placeholder">بيانات مطلوبة من العميل</span> ستُضاف هنا بمجرد تأكيدها.</p>
-        </details>
-        <details class="faq-item">
-          <summary>ما هو الحد الأدنى لحجم الشحنة؟
+          </button></h3>
+          <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
+            <div class="faq-panel-inner">
+              <p>نعتمد على أنظمة تبريد ومراقبة دقيقة طوال الرحلة للحفاظ على سلسلة التبريد. تفاصيل تقنية المراقبة الدقيقة <span class="placeholder">بيانات مطلوبة من العميل</span> ستُضاف هنا بمجرد تأكيدها.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 style="margin:0"><button class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+            ما هو الحد الأدنى لحجم الشحنة؟
             <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p><span class="placeholder">بيانات مطلوبة من العميل</span> — تواصل معنا مباشرة وسنؤكد لك الحد الأدنى المناسب لشحنتك.</p>
-        </details>
-        <details class="faq-item">
-          <summary>هل تقدمون خدمة النقل مباشرة إلى المملكة العربية السعودية؟
+          </button></h3>
+          <div class="faq-panel is-collapsed" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
+            <div class="faq-panel-inner">
+              <p><span class="placeholder">بيانات مطلوبة من العميل</span> — تواصل معنا مباشرة وسنؤكد لك الحد الأدنى المناسب لشحنتك.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 style="margin:0"><button class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+            هل تقدمون خدمة النقل مباشرة إلى المملكة العربية السعودية؟
             <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p>نعم، المملكة العربية السعودية هي سوق توسع مؤكد لدينا إلى جانب مصر كسوقنا الرئيسي.</p>
-        </details>
-        <details class="faq-item">
-          <summary>ما هي سرعة تأكيد عرض السعر؟
+          </button></h3>
+          <div class="faq-panel is-collapsed" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
+            <div class="faq-panel-inner">
+              <p>نعم، المملكة العربية السعودية هي سوق توسع مؤكد لدينا إلى جانب مصر كسوقنا الرئيسي.</p>
+            </div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <h3 style="margin:0"><button class="faq-trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+            ما هي سرعة تأكيد عرض السعر؟
             <svg class="icon chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-          </summary>
-          <p><span class="placeholder">بيانات مطلوبة من العميل</span> — سنوضح هنا زمن الاستجابة الفعلي بمجرد تأكيده.</p>
-        </details>
+          </button></h3>
+          <div class="faq-panel is-collapsed" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
+            <div class="faq-panel-inner">
+              <p><span class="placeholder">بيانات مطلوبة من العميل</span> — سنوضح هنا زمن الاستجابة الفعلي بمجرد تأكيده.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -912,6 +1106,41 @@
     var isOpen = nav.classList.toggle('open');
     toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
   });
+
+  // Scroll-reveal for the hero, adapted from 21st.dev "Editorial Image Hero" (felipemenezes098/hero-07)
+  var revealTargets = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window && revealTargets.length) {
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    revealTargets.forEach(function (el) { revealObserver.observe(el); });
+  } else {
+    revealTargets.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+
+  // FAQ accordion (single-open), pattern inspired by 21st.dev "Accordion" (ddoemonn)
+  var faqList = document.getElementById('faqList');
+  if (faqList) {
+    faqList.addEventListener('click', function (e) {
+      var trigger = e.target.closest('.faq-trigger');
+      if (!trigger) return;
+      var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      var willOpen = trigger.getAttribute('aria-expanded') !== 'true';
+      faqList.querySelectorAll('.faq-trigger').forEach(function (t) {
+        if (t !== trigger) {
+          t.setAttribute('aria-expanded', 'false');
+          document.getElementById(t.getAttribute('aria-controls')).classList.add('is-collapsed');
+        }
+      });
+      trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+      panel.classList.toggle('is-collapsed', !willOpen);
+    });
+  }
 </script>
 
 </body>
